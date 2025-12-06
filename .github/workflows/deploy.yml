@@ -1,0 +1,41 @@
+name: Deploy React App to cPanel (Subdomain)
+
+on:
+  push:
+    branches: [ "main" ]  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.17.1'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React App
+        run: npm run build
+
+      # --- FTP Deployment ---
+      - name: Upload to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          # Path on your hosting account for the SUBDOMAIN
+          # Example: subdomain.yourdomain.com = /public_html/subdomain/
+          server-dir: "/easygist.sesha.website/"
+
+          # Build folder for React
+          local-dir: "build/"
+
+          dangerous-clean-slate: true
