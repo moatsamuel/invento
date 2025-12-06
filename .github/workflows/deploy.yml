@@ -36,6 +36,6 @@ jobs:
           server-dir: "/easygist.sesha.website/"
 
           # Build folder for React
-          local-dir: "build/"
+          local-dir: "/"
 
           dangerous-clean-slate: true
