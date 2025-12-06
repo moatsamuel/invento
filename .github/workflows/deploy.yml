@@ -33,7 +33,7 @@ jobs:
 
           # Path on your hosting account for the SUBDOMAIN
           # Example: subdomain.yourdomain.com = /public_html/subdomain/
-          server-dir: "/easygist.sesha.website/"
+          server-dir: " /home/seshtmmb/easygist.sesha.website/"
 
           # Build folder for React
           local-dir: "/"
