@@ -33,9 +33,9 @@ jobs:
 
           # Path on your hosting account for the SUBDOMAIN
           # Example: subdomain.yourdomain.com = /public_html/subdomain/
-          server-dir: "/public_html/"
+          server-dir: "/"
 
           # Build folder for React
-          local-dir: "/"
+          local-dir: "/build/"
 
           dangerous-clean-slate: true
