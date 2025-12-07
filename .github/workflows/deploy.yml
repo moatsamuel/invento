@@ -36,6 +36,6 @@ jobs:
           server-dir: "/"
 
           # Build folder for React
-          local-dir: "./build/"
+          local-dir: "dist/"
 
           dangerous-clean-slate: true
