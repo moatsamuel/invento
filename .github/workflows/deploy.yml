@@ -30,6 +30,8 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp        # <--- force plain FTP
+          port: 21
 
           # Path on your hosting account for the SUBDOMAIN
           # Example: subdomain.yourdomain.com = /public_html/subdomain/
