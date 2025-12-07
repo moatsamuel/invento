@@ -1,43 +1,44 @@
-name: Deploy React App to cPanel (Subdomain)
+name: Deploy Invento to cPanel
 
 on:
   push:
-    branches: [ "main" ]  
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22.17.1'
+          node-version: '22.17.1' 
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build React App
+      - name: Build application
         run: npm run build
+        env:
+          NODE_ENV: production
 
-      # --- FTP Deployment ---
-      - name: Upload to cPanel via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_HOST }}
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp        # <--- force plain FTP
-          port: 21
-
-          # Path on your hosting account for the SUBDOMAIN
-          # Example: subdomain.yourdomain.com = /public_html/subdomain/
-          server-dir: "/"
-
-          # Build folder for React
-          local-dir: "dist/"
-
-          dangerous-clean-slate: true
+          local-dir: ./dist/  # Vite's default build output directory
+          server-dir: ./  # Root directory of your subdomain in cPanel
+          dangerous-clean-slate: true  # Set to true to delete all files before upload (use with caution)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.vscode/**
+            **/.idea/**
