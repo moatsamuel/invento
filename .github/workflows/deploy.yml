@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/  # Vite's default build output directory
-          server-dir: ./  # Root directory of your subdomain in cPanel
+          server-dir: ./public_html/  # Root directory of your subdomain in cPanel
           dangerous-clean-slate: false  # Set to true to delete all files before upload (use with caution)
           exclude: |
             **/.git*
